@@ -1,0 +1,6 @@
+CREATE TABLE tutores (
+    id BIGINT NOT NULL IDENTITY(1,1),
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    CONSTRAINT PK_tutores PRIMARY KEY (id)
+);

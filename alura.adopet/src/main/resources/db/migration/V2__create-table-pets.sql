@@ -1,0 +1,9 @@
+CREATE TABLE pets (
+    id BIGINT NOT NULL IDENTITY(1,1),
+    nome VARCHAR(100) NOT NULL,
+    idade INT NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    adotado BIT NOT NULL,
+    imagem VARCHAR(200) NOT NULL,
+    CONSTRAINT PK_pets PRIMARY KEY (id)
+);
