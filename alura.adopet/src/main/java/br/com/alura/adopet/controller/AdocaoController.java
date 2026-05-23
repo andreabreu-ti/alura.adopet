@@ -3,6 +3,8 @@ package br.com.alura.adopet.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import br.com.alura.adopet.dto.AprovarAdocaoDTO;
 import br.com.alura.adopet.dto.ReprovarAdocaoDTO;
 import br.com.alura.adopet.dto.SolicitacaoDeAdocaoDTO;
 import br.com.alura.adopet.service.AdocaoService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -50,7 +53,13 @@ public class AdocaoController {
 	@Transactional
 	public ResponseEntity<String> aprovar(@RequestBody @Valid AprovarAdocaoDTO dto) {
 		
-		this.service.aprovar(dto);
+		try {
+			
+			this.service.aprovar(dto);
+		}catch (EntityNotFoundException ex) {
+			
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adoção não encontrada!");
+		}
 		
 		return ResponseEntity.ok().build();
 	}
