@@ -11,6 +11,7 @@ import br.com.alura.adopet.dto.ReprovarAdocaoDTO;
 import br.com.alura.adopet.dto.SolicitacaoDeAdocaoDTO;
 import br.com.alura.adopet.model.Adocao;
 import br.com.alura.adopet.model.Pet;
+import br.com.alura.adopet.model.StatusAdocao;
 import br.com.alura.adopet.model.Tutor;
 import br.com.alura.adopet.repository.AdocaoRepository;
 import br.com.alura.adopet.repository.PetRepository;
@@ -44,6 +45,30 @@ public class AdocaoService {
 		Tutor tutor = tutorRepository.getReferenceById(dto.idTutor());
 
 		//Pet já adotado
+		
+		if (pet.getAdotado()) {
+			
+			throw new IllegalStateException("Pet já adotado!");
+		}
+		
+		//Pet com solicitação de adoção em andamento
+		Boolean petAdocaoEmAndamento =  adocaoRepository.existsByPetIdAndStatus(dto.idPet(), StatusAdocao.AGUARDANDO_AVALIACAO);
+		
+		if (petAdocaoEmAndamento) {
+			
+			throw new UnsupportedOperationException("Pet com adoção em andamento!");
+		}
+		
+		//Tutor com 2 adoções aprovadas
+		Integer tutorAdocoes = adocaoRepository.countByTutorIdAndStatus(dto.idTutor(), StatusAdocao.APROVADO);
+		
+		if (tutorAdocoes == 2) {
+			
+			throw new IllegalStateException("Tutor com o máximo de adoções!");
+		}
+		
+		
+		
 		
 		adocaoRepository.save(new Adocao(tutor, pet, dto.motivo()));
 	}
