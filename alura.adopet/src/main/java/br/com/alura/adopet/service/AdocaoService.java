@@ -9,6 +9,7 @@ import br.com.alura.adopet.dto.AdocaoDTO;
 import br.com.alura.adopet.dto.AprovarAdocaoDTO;
 import br.com.alura.adopet.dto.ReprovarAdocaoDTO;
 import br.com.alura.adopet.dto.SolicitacaoDeAdocaoDTO;
+import br.com.alura.adopet.exception.AdocaoException;
 import br.com.alura.adopet.model.Adocao;
 import br.com.alura.adopet.model.Pet;
 import br.com.alura.adopet.model.StatusAdocao;
@@ -48,7 +49,7 @@ public class AdocaoService {
 		
 		if (pet.getAdotado()) {
 			
-			throw new IllegalStateException("Pet já adotado!");
+			throw new AdocaoException("Pet já adotado!");
 		}
 		
 		//Pet com solicitação de adoção em andamento
@@ -56,7 +57,7 @@ public class AdocaoService {
 		
 		if (petAdocaoEmAndamento) {
 			
-			throw new UnsupportedOperationException("Pet com adoção em andamento!");
+			throw new AdocaoException("Pet com adoção em andamento!");
 		}
 		
 		//Tutor com 2 adoções aprovadas
@@ -64,7 +65,7 @@ public class AdocaoService {
 		
 		if (tutorAdocoes == 2) {
 			
-			throw new IllegalStateException("Tutor com o máximo de adoções!");
+			throw new AdocaoException("Tutor com o máximo de adoções!");
 		}
 		
 		

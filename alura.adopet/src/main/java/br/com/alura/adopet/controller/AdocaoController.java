@@ -19,6 +19,7 @@ import br.com.alura.adopet.dto.AdocaoDTO;
 import br.com.alura.adopet.dto.AprovarAdocaoDTO;
 import br.com.alura.adopet.dto.ReprovarAdocaoDTO;
 import br.com.alura.adopet.dto.SolicitacaoDeAdocaoDTO;
+import br.com.alura.adopet.exception.AdocaoException;
 import br.com.alura.adopet.service.AdocaoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -49,7 +50,7 @@ public class AdocaoController {
 		try {
 		
 			this.service.solicitar(dados);
-		} catch (IllegalStateException | UnsupportedOperationException ex) {
+		} catch (AdocaoException ex) {
 			
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}
