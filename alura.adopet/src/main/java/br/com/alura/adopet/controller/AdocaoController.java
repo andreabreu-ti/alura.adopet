@@ -49,12 +49,11 @@ public class AdocaoController {
 		try {
 		
 			this.service.solicitar(dados);
-		} catch (IllegalStateException ex) {
+		} catch (IllegalStateException | UnsupportedOperationException ex) {
 			
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}
-		
-		
+
 		return ResponseEntity.ok("Adoção solicitada com sucesso!");
 	}
 
