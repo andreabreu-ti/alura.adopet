@@ -43,6 +43,8 @@ public class AdocaoService {
 		Pet pet = petRepository.getReferenceById(dto.idPet());
 		Tutor tutor = tutorRepository.getReferenceById(dto.idTutor());
 
+		//Pet já adotado
+		
 		adocaoRepository.save(new Adocao(tutor, pet, dto.motivo()));
 	}
 
