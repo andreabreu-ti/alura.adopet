@@ -55,14 +55,7 @@ public class AdocaoController {
 	@Transactional
 	public ResponseEntity<String> aprovar(@RequestBody @Valid AprovarAdocaoDTO dto) {
 		
-		try {
-			
-			this.service.aprovar(dto);
-		}catch (EntityNotFoundException ex) {
-			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adoção não encontrada! " + ex.getMessage());
-		}
-		
+		this.service.aprovar(dto);		
 		return ResponseEntity.ok().build();
 	}
 
